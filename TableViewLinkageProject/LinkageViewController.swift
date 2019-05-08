@@ -10,6 +10,9 @@ import UIKit
 
 class LinkageViewController: BaseViewController {
 
+    ///数据源
+    var dataArray = [[[String: Any]]]()
+    
     lazy var linkageView: LinkageView = {
         let linkageView = LinkageView(frame: CGRect(x: 0, y: 0, width: ScreenSize.width, height: ContentHeight))
         return linkageView
@@ -28,7 +31,12 @@ class LinkageViewController: BaseViewController {
     }
 
     func requestApi() {
-        Bundle.readDataWith(fileName: "content", fileType: "json")
+        let dic = Bundle.readDataWith(fileName: "content", fileType: "json")
+        let arr = dic["characters"] as! [[[String: Any]]]
+        dataArray = arr
+        //给LinkageView提供数据
+        linkageView.dataArr = dataArray
+        print("dataArray = \(dataArray)")
     }
     
     /*
